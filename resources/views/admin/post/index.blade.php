@@ -171,7 +171,7 @@
                 
               </tbody>
             </table>
-            <div> {{ $page->links() }}</div>
+            <div> {{ $page->links('vendor/pagination/bootstrap-4') }}</div>
           </div>
         </div>
         </div>

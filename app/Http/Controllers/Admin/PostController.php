@@ -30,7 +30,7 @@ class PostController extends Controller
             ->where('title', 'like', '%' . $search . '%')
             ->paginate(5);
         $posts->appends(['search' => $search]);
-        $page = post::paginate(10);
+        $page = post::paginate(5);
         return view('admin.post.index', [
             'posts' => $posts,
             'search' => $search,

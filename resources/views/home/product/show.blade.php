@@ -107,7 +107,7 @@
                     <h1 style="color: rgb(48, 224, 255);">SĐT: {{ $sdt }}</h1>
                     <h1 id="money"><sup>VND</sup></h1>
                     <script>
-                        var x =  {{ $post->price }};
+                        var x = {{ $post->price }};
                         x = x.toLocaleString('it-IT', {
                             style: 'currency',
                             currency: 'VND'
@@ -116,7 +116,7 @@
                     </script>
                     <span>
                         {{ $post->title }}
-                        
+
                     </span>
                 </div>
             </div>
@@ -128,7 +128,7 @@
             <div class="row">
                 <div class="col-md-7">
                     <div>
-                       
+
                         <div class="container">
                             @foreach ($img as $data)
                                 <div class="mySlides">
@@ -149,31 +149,35 @@
                                     <i style="display: none;"> {{ $i++ }}</i>
                                 @endforeach
                             </div>
+                            <div>
+                                <h3>Mô tả:</h3>
+                                <pre><b>{{ $post->content }} </b></pre>
+                            </div>
                             @auth
-                            @if ($rate == 1)
-                                <div style="margin-top:20px;">
-                                    <form action="{{ route('rate') }}" method="post">
-                                        @csrf
-                                        <input type="text" value="{{ $post->id }}" name="id"
-                                            style="display:none;">
-                                        <input type="text" name="rate" value="Hài lòng"
-                                            id="rate"style="display:none;">
-                                        <input type="text" name="username" value="{{ Auth::user()->username }}"
-                                            style="display:none;">
-                                        <select onChange="myNewFunction(this);" style="height: 43px;">
-                                            <option>Hài lòng</option>
-                                            <option>Không hài lòng</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit"
-                                            value="addtocard" style="width: 50%">Đánh giá</button>
-                                        <script>
-                                            function myNewFunction(sel) {
-                                                document.getElementById('rate').value = sel.options[sel.selectedIndex].text;
-                                            }
-                                        </script>
-                                    </form>
-                                </div>
-                            @endif
+                                @if ($rate == 1)
+                                    <div style="margin-top:20px;">
+                                        <form action="{{ route('rate') }}" method="post">
+                                            @csrf
+                                            <input type="text" value="{{ $post->id }}" name="id"
+                                                style="display:none;">
+                                            <input type="text" name="rate" value="Hài lòng"
+                                                id="rate"style="display:none;">
+                                            <input type="text" name="username" value="{{ Auth::user()->username }}"
+                                                style="display:none;">
+                                            <select onChange="myNewFunction(this);" style="height: 43px;">
+                                                <option>Hài lòng</option>
+                                                <option>Không hài lòng</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-success btn-lg" name="submit"
+                                                value="addtocard" style="width: 50%">Đánh giá</button>
+                                            <script>
+                                                function myNewFunction(sel) {
+                                                    document.getElementById('rate').value = sel.options[sel.selectedIndex].text;
+                                                }
+                                            </script>
+                                        </form>
+                                    </div>
+                                @endif
                             @endauth
                         </div>
 
@@ -185,7 +189,7 @@
 
                     <br>
                 </div>
-                  
+
                 <div class="col-md-5">
                     <form action="#" method="post" class="form">
                         <ul class="list-group list-group-flush">
@@ -261,6 +265,7 @@
 
 
 
+
                         </ul>
                         <div class="col-auto">
                             <ul class="list-inline pb-3">
@@ -292,50 +297,48 @@
                                                 value="addtocard" style="width: 100%">Thêm Vào Giỏ Hàng </button>
                                         </form>
                                     </div>
-                                    @endauth
-                                    @guest
+                                @endauth
+                                @guest
                                     <div class="col d-grid">
                                         <a class="btn btn-success btn-lg" href="{{ route('login') }}"
                                             style="width: 100%;color:rgb(255, 255, 255);">Đăng Nhập Để Mua Hàng Ngay!</a>
                                     </div>
 
                                 @endguest
-                                @endif
+                            @endif
 
-                                    <div>
-                                        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-                                        <script>
-                                            var xValues = ["Không hài lòng", "Hài lòng", ];
-                                            var yValues = [{{ $post->bad }}, {{ $post->good  }}, ];
-                                            var barColors = [
-                                                "#b91d47",
-                                                "#00aba9",
-                                                "#2b5797",
-                                                "#e8c3b9",
-                                                "#1e7145"
-                                            ];
-            
-                                            new Chart("myChart", {
-                                                type: "doughnut",
-                                                data: {
-                                                    labels: xValues,
-                                                    datasets: [{
-                                                        backgroundColor: barColors,
-                                                        data: yValues
-                                                    }]
-                                                },
-                                                options: {
-                                                    title: {
-                                                        display: true,
-                                                        text: "Thống kê đánh giá sản phẩm"
-                                                    }
-                                                }
-                                            });
-                                        </script>
-                                    </div>
-                               
-                                
-                           
+
+                            <div>
+                                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                                <script>
+                                    var xValues = ["Không hài lòng", "Hài lòng", ];
+                                    var yValues = [{{ $post->bad }}, {{ $post->good }}, ];
+                                    var barColors = [
+                                        "#b91d47",
+                                        "#00aba9",
+                                        "#2b5797",
+                                        "#e8c3b9",
+                                        "#1e7145"
+                                    ];
+
+                                    new Chart("myChart", {
+                                        type: "doughnut",
+                                        data: {
+                                            labels: xValues,
+                                            datasets: [{
+                                                backgroundColor: barColors,
+                                                data: yValues
+                                            }]
+                                        },
+                                        options: {
+                                            title: {
+                                                display: true,
+                                                text: "Thống kê đánh giá sản phẩm"
+                                            }
+                                        }
+                                    });
+                                </script>
+                            </div>
 
                         </div>
                     </form>
@@ -348,181 +351,76 @@
 
 
         </div>
+        <div style="background-color: rgb(255, 250, 244)">
+            <marquee scrollamount="15">
+                <h3><b>Sản phẩm tương tự</b></h3>
+            </marquee>
+
+            <div class="container">
+                <div class="row">
+                    @foreach ($same_product as $item)
+                        @if ($item->status == 1 && $item->id != $post->id)
+                            <div class="col-md-4" style="margin-top: 20px;">
+                                <div class="service-item">
+                                    @foreach ($product as $data)
+                                        @if ($data->id_post == $item->id)
+                                            <img src="{{ url('admin/csdl/product/') }}{{ '/' }}{{ $data->image }}"
+                                                alt=""
+                                                style="height: 50%;width:100%; max-height: 250px; min-height: 250px;">
+                                        @break
+                                    @endif
+                                @endforeach
+
+                                <div class="down-content">
+                                    <h4>{{ $item->title }}</h4>
+                                    <div style="margin-bottom:10px;">
+                                        <span id="money">
+                                            {{ $item->price }}<sup>VND</sup> &nbsp;
+                                        </span>
+                                        <script>
+                                            var x = {{ $item->price }};
+                                            x = x.toLocaleString('it-IT', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            });
+                                            document.getElementById("money").innerHTML = x;
+                                        </script>
+
+                                    </div>
+
+                                    <p>
+                                        <i class="fa fa-dashboard"></i> {{ $item->mileage }}KM &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-cube"></i> {{ $item->engine_size }}CC &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-cube"></i> Số Ghế:{{ $item->seat_count }}
+                                        &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-cube"></i> Màu Sắc:{{ $item->color }} &nbsp;&nbsp;&nbsp;
+                                    </p>
+                                    <a href="/HomeProduct/{{ $item['id'] }}" class="filled-button">Xem Chi
+                                        Tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+
+
+
+                <br>
+
+
+
+
+            </div>
+            <div style="display: flex;flex-direction: row;
+            justify-content: space-around;">
+                {{ $same_product->links('vendor/pagination/bootstrap-4') }}</div>
+        </div>
 
         <!-- Footer Starts Here -->
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 footer-item">
-                        <h4>Car Dealer Website</h4>
-                        <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia
-                            sapien
-                            vitae.</p>
-                        <ul class="social-icons">
-                            <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 footer-item">
-                        <h4>Useful Links</h4>
-                        <ul class="menu-list">
-                            <li><a href="#">Vivamus ut tellus mi</a></li>
-                            <li><a href="#">Nulla nec cursus elit</a></li>
-                            <li><a href="#">Vulputate sed nec</a></li>
-                            <li><a href="#">Cursus augue hasellus</a></li>
-                            <li><a href="#">Lacinia ac sapien</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 footer-item">
-                        <h4>Additional Pages</h4>
-                        <ul class="menu-list">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Terms</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 footer-item last-item">
-                        <h4>Contact Us</h4>
-                        <div class="contact-form">
-                            <form id="contact footer-contact" action="" method="post">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <fieldset>
-                                            <input name="name" type="text" class="form-control" id="name"
-                                                placeholder="Full Name" required="">
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <fieldset>
-                                            <input name="email" type="text" class="form-control" id="email"
-                                                pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <fieldset>
-                                            <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message"
-                                                required=""></textarea>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <fieldset>
-                                            <button type="submit" id="form-submit" class="filled-button">Send
-                                                Message</button>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <div class="sub-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>
-                            Copyright © 2022 Company Name
-
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('footer');
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true" style="margin-top: 70px;">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Book Now</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" id="contact">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <input type="text" class="form-control" placeholder="Pick-up location"
-                                                required="">
-                                        </fieldset>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <input type="text" class="form-control" placeholder="Return location"
-                                                required="">
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <input type="text" class="form-control"
-                                                placeholder="Pick-up date/time" required="">
-                                        </fieldset>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <input type="text" class="form-control" placeholder="Return date/time"
-                                                required="">
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <fieldset>
-                                    <input type="text" class="form-control" placeholder="Enter full name"
-                                        required="">
-                                </fieldset>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <input type="text" class="form-control"
-                                                placeholder="Enter email address" required="">
-                                        </fieldset>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <input type="text" class="form-control" placeholder="Enter phone"
-                                                required="">
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Bootstrap core JavaScript -->
         <script src="{{ URL('jquery/jquery.min.js') }}"></script>

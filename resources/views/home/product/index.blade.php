@@ -93,6 +93,7 @@
         <div class="container">
             <div class="row">
                 @foreach ($post as $item)
+                @if ($item->status == 1)
                     <div class="col-md-4" style="margin-top: 20px;" >
                         <div class="service-item" >
                             @foreach ($product as $data)
@@ -131,6 +132,8 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                
             @endforeach
 
 
@@ -147,7 +150,7 @@
         <nav>
 
             <ul class="pagination pagination-lg justify-content-center">
-                <div> {{ $page->links() }}</div>
+                <div> {{ $page->links('vendor/pagination/bootstrap-4') }}</div>
 
                 {{-- <li class="page-item">
                     <a class="page-link" href="#" aria-label="Previous">

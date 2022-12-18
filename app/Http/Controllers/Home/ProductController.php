@@ -33,7 +33,7 @@ class ProductController extends Controller
             ->paginate(9);
         $post->appends(['search' => $search]);
 
-        $page = post::paginate(9)->withQueryString();
+        $page = post::paginate(9);
          
         return view('Home.product.index', [
             'post' => $post,
@@ -99,6 +99,16 @@ class ProductController extends Controller
        
         $id_post = $id;
         $img = product::where('id_post', $id_post)->get();
+        
+        $same_product = post::where('the_firm', $post->the_firm)->paginate(3);
+
+        $count_product = post::where('the_firm', $post->the_firm)->count();
+  
+        if ($count_product==1){
+            $same_product = post::where('seat_count', $post->seat_count)->paginate(3);
+        }
+        // dd($count_product);
+        $product = product::all();
         return view(
             'home.product.show',
             [
@@ -106,6 +116,8 @@ class ProductController extends Controller
                 'img' => $img,
                 'rate' => $rate,
                 'sdt' =>$sdt,
+                'same_product' => $same_product,
+                'product' => $product,
             ]
         );
     }
