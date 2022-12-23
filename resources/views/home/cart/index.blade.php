@@ -5,6 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="CodeHim">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    @include('admin.layouts.lib')
     <title></title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
@@ -579,6 +583,7 @@
             width: 40px;
             height: 40px;
             right: -40px;
+          
         }
 
         .red {
@@ -621,7 +626,7 @@
             <!-- Start DEMO HTML (Use the following code into your project)-->
             <header id="site-header">
                 <div class="container">
-                    <h1>Giỏ hàng của <span>[</span> <em>{{ Auth::user()->name }}</em> <span
+                    <h1>Lịch hẹn của <span>[</span> <em>{{ Auth::user()->name }}</em> <span
                             class="last-span is-open">]</span></h1>
 
 
@@ -632,7 +637,7 @@
 
                 <section id="cart">
                     @foreach ($cart as $data)
-                        @if (Auth::user()->username == $data->user && $data->status!=3)
+                        @if (Auth::user()->username == $data->user && $data->status != 3)
                             <article class="product">
                                 <header>
                                     <a class="remove">
@@ -656,66 +661,73 @@
 
                                 </a>
                             </header>
-                            
+
                             @foreach ($post as $key)
                                 @if ($key->id == $data->product_id)
-                                    <div class="content">
+                                    <div>
                                         <h1>{{ $key->title }}</h1>
-
-                                        {{ $key->content }}
-
+                                      <pre>{{ $key->content }}</pre>
+                                            
                                     </div>
-
                                     <footer class="content">
-                                        <span class="qt-minus">-</span>
-                                        <span class="qt">0</span>
-                                        <span class="qt-plus">+</span>
+                                        
+                                        
+                                        <span class="full-price" id="money"> {{ $key->price }} </span>
+                                        <script>
+                                            var x = {{ $key->price }};
+                                            x = x.toLocaleString('it-IT', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            });
+                                            document.getElementById("money").innerHTML = x;
+                                        </script>
 
-                                        <h2 class="full-price" id="full-price">
-                                          
-                                        </h2>
 
-                                        <h2 class="price">
-                                            {{ $key->price }}
-                                        </h2>
+
                                     </footer>
                                 @break
                             @endif
                         @endforeach
 
                     </article>
-                  
+
                     <footer id="site-footer">
                         <div class="container clearfix">
                             <form action="/HomeCart/{{ $data->id }}" method="post">
                                 @csrf
                                 @method('PUT')
-                                <div class="left">
-                                    <input type="number" class="subtotal" id="totalmoney" name="totalmoney"
-                                        style="display:none; ">
-                                    <input type="numbder" id="count" class="qt" name="count"
-                                        style="display:none;">
-                                    <input type="numbder" value="{{ Auth::user()->username }}" name="username"
-                                        style="display: none;">
-                                </div>
+                                
+                                    <div class="left">
+                                        <input type="number" value="{{ $key->price }}" class="subtotal" id="totalmoney" name="totalmoney"
+                                            style="display:none; ">
+                                        <input type="numbder" id="count" class="qt" name="count"
+                                            style="display:none;">
+                                        <input type="numbder" value="{{ Auth::user()->username }}" name="username"
+                                            style="display: none;">
+                                        </div>
+                                        
+
+                                    
+                               
                                 <div class="right">
                                     @if ($data->status == 0)
-                                        <h1></h1>
-                                        <button class="btn" type="submit">Đặt Hàng</button>
+                                        <h3><span>Ngày hẹn: <input type="date" name="date" style="  background-color: rgb(100, 211, 128);" ></span></h3>
+                                        <button class="btn" type="submit">Đặt lịch hẹn</button>
                                     @endif
-                                    
+
                                     @if ($data->status == 2)
-                                        <a class="btn" style="olor: red;">Đơn hàng bị hủy</a>
+                                        <a class="btn" style="olor: red;">Lịch hẹn bị hủy</a>
                                     @endif
                                 </div>
                             </form>
                             @if ($data->status == 1)
-                            <form action="{{ route('unOrder') }}" method="post">
-                                @csrf
-                                <input type="text" value="{{ $data->id }}" name="id" style="display: none;">
-                                <button class="btn" type="submit" style="color: red"><b>Hủy Đơn</b></button>
-                            </form>
-                                
+                                <form action="{{ route('unOrder') }}" method="post">
+                                    @csrf
+                                    <input type="text" value="{{ $data->id }}" name="id"
+                                        style="display: none;">
+                                    <button class="btn" type="submit" style="color: red"><b>Hủy
+                                            lịch</b></button>
+                                </form>
                             @endif
 
                         </div>
@@ -747,13 +759,13 @@
         var eq = Math.round(price * qt * 100) / 100;
         // eq = eq.toLocaleString('it-IT',{style: 'currency', currency: 'VND'});
         el.parent().children(".full-price").html(eq);
-         
+
         changeTotal();
     }
 
     function changeTotal() {
 
-        var price = 0;
+        var price = 1;
 
         $(".full-price").each(function(index) {
             price += parseFloat($(".full-price").eq(index).html());
@@ -766,7 +778,7 @@
         if (price == 0) {
             fullPrice = 0;
         }
-        
+
         $(".subtotal span").html(price);
         document.getElementById('totalmoney').value = price;
         $(".tax span").html(tax);

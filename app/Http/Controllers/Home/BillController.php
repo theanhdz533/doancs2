@@ -74,7 +74,7 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -85,12 +85,15 @@ class BillController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {    
         $user= User::where('user_id',$id)->get();
         $mail = "abc";
         foreach($user as $data){
             $mail = $data['username'];
         }
+        $cart = cart::where('id', $request->id_cart)->update([
+            'status' => 1,
+        ]);
         $customer = User::where('user_id',$id)->update([
             'name' => $request->input('name'),
             'username' => $mail,
@@ -100,8 +103,6 @@ class BillController extends Controller
             'address'=> $request->input('address'),
            ]);
            return redirect('/');
-           
-        
     }
 
     /**
@@ -115,9 +116,7 @@ class BillController extends Controller
         dd($id);
     }
     public function unOrder(Request $request){
-        $cart = cart::where('id', $request->id)->update([
-            'status' => 0,
-        ]);
+        $cart = cart::where('id', $request->id)->delete();
         return back();
     }
 }

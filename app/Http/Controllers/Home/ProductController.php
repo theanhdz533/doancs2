@@ -23,7 +23,7 @@ class ProductController extends Controller
         $post = post::all();
         $product = product::all();
         $post = post::query()
-            ->where('title', 'like', '%' . $search . '%')->orWhere('price', 'like', '%' . $search . '%')
+            ->where('title', 'like', '%' . $search . '%')->orWhereBetween('price',[100000000,$search])
             ->orWhere('color', 'like', '%' . $search . '%')->orWhere('type_car', 'like', '%' . $search . '%')
             ->orWhere('year_of_manufacture', 'like', '%' . $search . '%')->orWhere('seat_count', 'like', '%' . $search . '%')
             ->orWhere('fuel', 'like', '%' . $search . '%')->orWhere('content', 'like', '%' . $search . '%')
@@ -93,6 +93,8 @@ class ProductController extends Controller
                 }
             }
         }
+        
+        // san pham tuong tu
        
         $user = User::where('username', $post->email)->first();
         $sdt = $user->phone;

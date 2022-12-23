@@ -63,7 +63,15 @@
         }
     </style>
 </head>
-
+{{-- reload page --}}
+<script>
+    window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
+</script>
 <body>
     <div class="container rounded bg-white mt-5 mb-5">
         @foreach ($customer as $data)
@@ -107,6 +115,7 @@
                                         class="form-control" placeholder="" name="birthday"
                                         value="{{ $data->birthday }}" required></div>
                             </div>
+                             <input type="text" value="{{ $id_cart }}" name="id_cart" style="display: none;">
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">
                                     Xác nhận thông tin</button></div>
                         </div>
@@ -115,13 +124,11 @@
                         <div class="p-3 py-5">
                             <div class="d-flex justify-content-between align-items-center experience"><span
                                     class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;<a
-                                        href="/HomeCart">Quay lại giỏ hàng</a> </span></div><br>
+                                        href="/HomeCart">Quay lại</a> </span></div><br>
                             <div class="form-group col-md-12">
                                 <div class="row mt-3">
-                                    <div class="col-md-12"><label class="labels">Số lượng sản phẩm</label><input
-                                            type="text" class="form-control" placeholder=""
-                                            value="{{ $c->amount }}" readonly></div>
-                                    <div class="col-md-12"><label class="labels">Đơn Giá</label><input type="text"
+                                   
+                                    <div class="col-md-12"><label class="labels">Giá ước tính</label><input type="text"
                                             class="form-control" placeholder="" value="" id="money" readonly>
 
                                     </div>
@@ -134,9 +141,9 @@
                                         document.getElementById('money').value = x;
                                         console.log(x);
                                     </script>
-                                    <div class="col-md-12"><label class="labels">Ngày mua hàng</label><input
+                                    <div class="col-md-12"><label class="labels">Ngày hẹn</label><input
                                             type="text" class="form-control" placeholder=""
-                                            value="{{ $c->date }}" readonly></div>
+                                            value="{{  $c->date}}" readonly></div>
 
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th12 18, 2022 lúc 02:29 PM
+-- Thời gian đã tạo: Th12 23, 2022 lúc 04:25 PM
 -- Phiên bản máy phục vụ: 5.7.33
 -- Phiên bản PHP: 7.4.19
 
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `banner`
+--
+
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL,
+  `img` longtext COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `banner`
+--
+
+INSERT INTO `banner` (`id`, `img`) VALUES
+(1, '1671577160_product-6-720x480.jpg'),
+(2, '1671576823_slider-image-2-1920x900.jpg'),
+(3, '1671577858_blog-image-2-940x460.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `cart`
 --
 
@@ -31,19 +51,20 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `amount` int(11) DEFAULT NULL,
+  `address` longtext COLLATE utf8_unicode_ci,
   `status` tinyint(1) DEFAULT NULL,
   `total` bigint(20) DEFAULT NULL,
   `date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `rate` int(11) DEFAULT NULL
+  `rate` int(11) DEFAULT NULL,
+  `time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `cart`
 --
 
-INSERT INTO `cart` (`id`, `product_id`, `user`, `amount`, `status`, `total`, `date`, `rate`) VALUES
-(1, 29, 'votheanh533@gmail.com', 1, 3, 600000000, '18/12/2022', NULL);
+INSERT INTO `cart` (`id`, `product_id`, `user`, `address`, `status`, `total`, `date`, `rate`, `time`) VALUES
+(1, 37, 'anhvt.21it@vku.udn.vn', 'https://goo.gl/maps/MMNnB5XgSh57gL916', 3, 1399000000, '31/12/2022', NULL, '11:00');
 
 -- --------------------------------------------------------
 
@@ -74,7 +95,32 @@ INSERT INTO `cookie` (`name_cookie`, `id`) VALUES
 ('ZD0pJC9nUJmQHDbfOHiSeoMkvLX7vW26aesX6bZk', 17),
 ('fk0PVBRVyvkdfjmQoAS7YtKRWf9hNZLUkBcwaxrZ', 18),
 ('BwbWujlVPL7je7SaF8Cyq27R2MusVni8RPCyBGEC', 19),
-('IqirsV0rzj1gh7d5VeRLlocxcop6NiMha0V1qoCo', 20);
+('IqirsV0rzj1gh7d5VeRLlocxcop6NiMha0V1qoCo', 20),
+('XVRxPdibQO088EAmrdRCK1ax5BekLrlSZLOoiBtw', 21),
+('lkVgVhzrirkGJ2q2UKrF6ycsZLOLGNdUYkPlY6zj', 22),
+('7ymoUKY8JAJoY7dU65dDNA4MPgE0b4wyVuzBUrtU', 23),
+('ddZpAZhWIWDXRSRFCimijQqQB1NyL82Z8qjHO1Az', 24),
+('X9fNDRhl1uxMRdDNMTCsAyhoriNIRAmEzBkmlyro', 25),
+('02xjhqpxMsISMoQgCxpps63oB6e1zMZfQbhjRx7y', 26),
+('hNmM4t0AGTOhdHqE7FwIwmCWblBLqeartt2JP5Sz', 27),
+('73pK82JovSaP2o1WJ6K3TmYk8TBPdRejKrw7IhxH', 28),
+('ogfXRlYQyH8bybpW7TI9bQbpjg0nVGvO5KizPsk3', 29),
+('b6Vvgnz7GHcLKx0bI33EgVllZAoImNKaqnbxEW4i', 30),
+('VU9JLMChhkZDagPuuySKvJkcKQVzjATGZVDhhkKg', 31),
+('tBEhnMyMcIegC0zxTPjGpiVFS0dmywekMu9PhpZI', 32),
+('h6qiwSq3CtGNZVcJ6MbsUvbbsp0WhtvkTYjtDpjB', 33),
+('L6BTxDTBwdFrDNCv5YDBy5ohxHsmYPJMNdUIqek1', 34),
+('F4OABdgoio83EqiN9277upohp1VQd9kLC24lxrrR', 35),
+('gRwiZfunPckZH2PUU7IMJz6vnFEWdFjOCziGujBT', 36),
+('DYx0jVV2ZrMByszPbjaTcI7VFfWLtmSmku9xvVzP', 37),
+('WjI8bOIIMwj66w6WgHNM2Q4gPgvYe3u7FTguR8dN', 38),
+('xwVggcKcRBbuDJPYtppOyunogMtNjoK1OiZUcECA', 39),
+('7J637wJDFTD1TyLoG6ctSDboUm5bQXZiP6IeAvCW', 40),
+('vTkvxqi660lFgLVzM39uaA1RUxABu7KK5AaEiXpc', 41),
+('nRbsuJEiDwgGSWSKAtV8NNEtoHTp5TvgOY6qXnid', 42),
+('sVELGg2kyJHiDi78bXlmKrmuiB5G5XVxhD300qgS', 43),
+('NefvNEkWtN8j3xrY7sSxZvE40Rmi3lXVdSRcHymu', 44),
+('dvn05zhlRcmA6DIWJW28kJWRSFUsWFpJb3kAXcha', 45);
 
 -- --------------------------------------------------------
 
@@ -186,8 +232,7 @@ INSERT INTO `post` (`id`, `email`, `title`, `content`, `type_car`, `year_of_manu
 (33, 'anhvt.21it@vku.udn.vn', 'VinFast VF8 Eco 202', '- Tặng gói chăm xe 1 năm (rửa xe chuyên sâu, làm sạch sâu, spa xe, v. V.. ).\r\n- Tư vấn màu xe theo phong thủy, chọn ngày giờ giao xe.\r\n- Hỗ trợ vay ngân hàng đến 80% giá trị xe.\r\n- Đặt cọc 10 triệu, được rút cọc và chuyển nhượng cọc.\r\n- Được tặng voucher 150 triệu trừ vào giá xe.\r\n- Gói Adas và Smart Service tương đương 132 triệu.\r\n- Tặng 1 voucher nghỉ dưỡng Vinpearl 7 ngày cho 4 người.\r\n- Ưu đãi 01 sạc pin di động.\r\n- Tặng gói option nâng cao thông minh.\r\n- Bảo hành pin 10 năm.\r\n- Chịu hoàn toàn chi phí bảo dưỡng.\r\n- Thay thế pin khi khả năng sạc dưới 70%', 'Xe mới', '2022-12-01', '1000', 'Điện', '400', '200', 'Trắng', 5, 5, 900000000, 'VinFast', 1, '18/12/2022', NULL, NULL),
 (34, 'anhvt.21it@vku.udn.vn', 'VinFast VF8 Eco 2022', 'VF8 bản Eco: 1.109.000.000.\r\nVF8 bản Plus: 1.289.000.000.\r\nĐặt cọc 10 triệu, được rút cọc và chuyển nhượng cọc.\r\nĐược tặng voucher 150 triệu - 250 triệu tiền mặt.\r\nGói Adas và Smart Service tương đương 132 triệu.\r\nTặng 1 voucher nghỉ dưỡng Vinpearl.\r\nƯu đãi 01 sạc pin di động.\r\nTặng gói option nâng cao thông minh.\r\nBảo hành pin 10 năm.\r\nChịu hoàn toàn chi phí bảo dưỡng.\r\nThay thế pin khi khả năng sạc dưới 70%.', 'Xe mới', '2022-06-08', '1000', 'Điện', '400', '300', 'Đỏ', 5, 4, 1000000000, 'VinFast', 1, '18/12/2022', NULL, NULL),
 (35, 'anhvt.21it@vku.udn.vn', 'VinFast VF9 Eco 2022', 'Chỉ còn ít ngày để đặt cọc chính sách ưu đãi xe điện VF9 cụ thể như sau:\r\nVF9 bản Eco: 1 tỷ 443.200.000.\r\nVF9 bản Plus: 1 tỷ 571.900.000.\r\nĐặt cọc 10 triệu, được rút cọc và chuyển nhượng cọc.\r\nĐược tặng voucher 150 triệu - 250 triệu tiền mặt.\r\nGói Adas và Smart Service tương đương 132 triệu.\r\nTặng 1 voucher nghỉ dưỡng Vinpearl.\r\nƯu đãi 01 sạc pin di động.\r\nTặng gói option nâng cao thông minh.\r\nBảo hành pin 10 năm.\r\nChịu hoàn toàn chi phí bảo dưỡng.\r\nThay thế pin khi khả năng sạc dưới 70%.', 'Xe mới', '2022-06-01', '10000', 'Điện', '300', '250', 'Xanh Lam', 5, 9, 1300000000, 'VinFast', 1, '18/12/2022', NULL, NULL),
-(37, 'anhvt.21it@vku.udn.vn', 'Mercedes-Benz E200 2017', 'Xe bán ra hồ sơ pháp lý rõ ràng, không tranh chấp, không cầm cố, sang tên chính chủ nhanh gọn.', 'Xe đã qua sử dụng', '2017-07-12', '34000', 'Xăng', '200', '150', 'Đen', 5, 8, 1399000000, 'Mercedes', 1, '15/12/2022', NULL, NULL),
-(38, 'votheanh533@gmail.com', 'test', 'abc', 'Xe mới', '2022-12-06', '1000', 'Xăng', '400', '200', 'Đỏ', 5, 5, 1318000000, 'Volvo', 1, '18/12/2022', NULL, NULL);
+(37, 'anhvt.21it@vku.udn.vn', 'Mercedes-Benz E200 2017', 'Xe bán ra hồ sơ pháp lý rõ ràng, không tranh chấp, không cầm cố, sang tên chính chủ nhanh gọn.', 'Xe đã qua sử dụng', '2017-07-12', '34000', 'Xăng', '200', '150', 'Đen', 5, 8, 1399000000, 'Mercedes', 1, '15/12/2022', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -227,10 +272,7 @@ INSERT INTO `product` (`id_post`, `image`) VALUES
 (35, '1671300326_20220616082503-7100_wm.jpg'),
 (35, '1671300326_20220616082503-c16c_wm.jpg'),
 (37, '1671122497_118ebd2e-524d_wm.jpg'),
-(37, '1671122497_faee172d-8d1e_wm.jpg'),
-(38, '1671371999_20220719082327-0153_wm.jpg'),
-(38, '1671371999_20220719082327-c1b9_wm.jpg'),
-(38, '1671371999_20220719082327-cbbb_wm.jpg');
+(37, '1671122497_faee172d-8d1e_wm.jpg');
 
 -- --------------------------------------------------------
 
@@ -260,12 +302,18 @@ CREATE TABLE `tb_user` (
 
 INSERT INTO `tb_user` (`user_id`, `otp`, `status`, `name`, `username`, `address`, `birthday`, `gender`, `phone`, `image`, `password`, `created_at`, `updated_at`) VALUES
 (88, 454392, 1, 'admin', 'votheanh533@gmail.com', '470 Trần Đại Nghĩa, Quận Ngũ Hành Sơn, Đà Nẵng', '2003-03-05', 'Nam', '0961733352', '1669570477_Thế Anh.png', '$2y$10$qLvJuXkm3koV/s9Fl4zKCe9rkvOmORMr/fDamAOtET0w9ELrp8q.G', '2022-11-26 10:05:22', '2022-12-18 06:57:42'),
-(93, 620926, 1, 'Võ Thế Anh', 'Kakashidz6@gmail.com', 'đường Lưu Quang Vũ, Quận Ngũ Hành Sơn, Đà Nẵng', '2003-03-05', 'nam', '0961733352', NULL, '$2y$10$kHblTkhKfbZio2qMJ5JZNuAC8KFb1buDfvtgM9HN9glH/x/K52u92', '2022-11-29 11:08:40', '2022-12-04 04:25:07'),
-(94, 198538, 1, 'admin007', 'anhvt.21it@vku.udn.vn', 'Nam Kim, Nam Đàn, Nghệ An', '2003-05-05', 'Nam', '0961735552', '1671119970_theanh.jpg', '$2y$10$JoebaLwWUjHOD1oJJ7YlIO77tWT6ScjZNMjE3/VoZCdhxubsXd.sS', '2022-12-14 11:00:09', '2022-12-15 08:59:30');
+(93, 620926, 1, 'Võ Thế Anh', 'Kakashidz6@gmail.com', 'đường Lưu Quang Vũ, Quận Ngũ Hành Sơn, Đà Nẵng', '2003-03-05', 'nam', '0961733352', NULL, '$2y$10$kHblTkhKfbZio2qMJ5JZNuAC8KFb1buDfvtgM9HN9glH/x/K52u92', '2022-11-29 11:08:40', '2022-12-20 14:14:46'),
+(94, 198538, 1, 'admin007', 'anhvt.21it@vku.udn.vn', 'Nam Kim, Nam Đàn, Nghệ An', '2003-05-05', 'Nam', '0961735552', '1671119970_theanh.jpg', '$2y$10$JoebaLwWUjHOD1oJJ7YlIO77tWT6ScjZNMjE3/VoZCdhxubsXd.sS', '2022-12-14 11:00:09', '2022-12-22 17:59:48');
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `banner`
+--
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `cart`
@@ -333,6 +381,12 @@ ALTER TABLE `tb_user`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `banner`
+--
+ALTER TABLE `banner`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
@@ -342,7 +396,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT cho bảng `cookie`
 --
 ALTER TABLE `cookie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT cho bảng `failed_jobs`
@@ -366,7 +420,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT cho bảng `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_user`

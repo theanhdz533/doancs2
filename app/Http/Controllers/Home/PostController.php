@@ -25,13 +25,15 @@ class PostController extends Controller
             ->where('title', 'like', '%' . $search . '%')
             ->paginate(10);
         $posts->appends(['q' => $search]);
-        $cart = cart::all();  
+        $cart = cart::all(); 
+        
         return view('home.post.index', [
             'posts' => $posts,
             'search' => $search,
             'product' =>$product,
             'customer' =>$customer,
             'cart' => $cart,
+           
         ]);
     }
 

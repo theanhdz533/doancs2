@@ -114,24 +114,22 @@
                                     href="/HomePost">Quay lại</a> </span></div><br>
                         <div class="form-group col-md-12">
                             <div class="row mt-3">
-                                <div class="col-md-12"><label class="labels">Số lượng sản phẩm</label><input
-                                        type="text" class="form-control" placeholder="" value="{{ $c->amount }}"
-                                        readonly></div>
-                                <div class="col-md-12"><label class="labels">Đơn Giá</label><input type="text"
-                                        class="form-control" placeholder="" value="" id="money"  readonly>
-                                     
-                                    </div>
-                                        <script>
-                                            var x = {{ $c->total }};
-                                            x = x.toLocaleString('it-IT', {
-                                                style: 'currency',
-                                                currency: 'VND'
-                                            });
-                                            document.getElementById('money').value = x;
-                                            console.log(x);
-                                        </script>
-                                <div class="col-md-12"><label class="labels">Ngày mua hàng</label><input type="text"
-                                        class="form-control" placeholder="" value="{{ $c->date }}" readonly></div>
+                                <div class="col-md-12"><label class="labels">Giá ước tính</label><input type="text"
+                                    class="form-control" placeholder="" value="" id="money" readonly>
+
+                            </div>
+                            <script>
+                                var x = {{ $c->total }};
+                                x = x.toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                });
+                                document.getElementById('money').value = x;
+                                console.log(x);
+                            </script>
+                            <div class="col-md-12"><label class="labels">Ngày hẹn</label><input
+                                    type="text" class="form-control" placeholder=""
+                                    value="{{  $c->date}}" readonly></div>
 
                             </div>
                         </div>

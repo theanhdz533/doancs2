@@ -13,7 +13,7 @@
 
     #login {
         font-weight: bold;
-        background-color: rgb(83, 136, 151);
+        background-color: rgba(29, 230, 22, 0.3);
         border-radius: 200px;
     }
 
@@ -70,8 +70,8 @@
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="/HomeCart" role="button"
                                 aria-haspopup="true" aria-expanded="false">Mua Sắm</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="HomeCart"><i class="bi bi-cart-check">Giỏ Hàng</i></a>
-                                <a class="dropdown-item" href="/MyBill">Lịch sử mua hàng</a>
+                                <a class="dropdown-item" href="HomeCart">Lịch hẹn</i></a>
+                                <a class="dropdown-item" href="/MyBill">Lịch sử</a>
                             </div>
                         </li>
                     @endauth

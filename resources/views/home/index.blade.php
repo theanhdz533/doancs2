@@ -22,7 +22,18 @@
     <link rel="stylesheet" href="{{ URL('css/owl.css') }}">
     <link rel="stylesheet" href="{{ URL('css/edit.css') }}">
     <style>
+        /* banner  */
+        .Modern-Slider .item-1 .img-fill {
+            background-image: url('{{ url('admin/csdl/banner/') }}{{ "/" }}{{ $banner1->img }}');
+        }
 
+        .Modern-Slider .item-2 .img-fill {
+           background-image: url('{{ url('admin/csdl/banner/') }}{{ "/" }}{{ $banner2->img }}');
+        }
+
+        .Modern-Slider .item-3 .img-fill {
+           background-image: url('{{ url('admin/csdl/banner/') }}{{ "/" }}{{ $banner3->img }}');
+        }
     </style>
 </head>
 

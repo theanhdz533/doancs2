@@ -115,7 +115,8 @@ class CartController extends Controller
         // get time
         $format = "d/m/Y";
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $time = date($format,  time());
+        $time = strtotime($request->date);
+        $time1 = date($format, $time);
         $c = cart::find($id);
         $count = post::find($c->product_id);
         $amount = $count->count - $request->input('count');
@@ -125,23 +126,22 @@ class CartController extends Controller
         $seller = user::where('username',$p->email)->first();
        
          $customer = user::where('username',$c->user)->get();
-        if ($amount < 0) {
+        if ($time == null) {
             echo "<script>";
-            echo "confirm('Bạn chọn vượt mức sản phẩm hiện có của cửa hàng!');";
+            echo "confirm('Vui lòng chọn ngày hẹn!');";
             // echo "window.location.reload();";
             echo "history.back()";
             // echo "document.getElementById('count').reset();";
             echo "</script>";
         } else {
             $cart = cart::where('id', $id)->update([
-                'status' => 1,
-                'amount' => $request->input('count'),
+
+                'date' => $time1,
                 'total' => $request->input('totalmoney'),
-                'date' => $time,
 
             ]);
-            
-
+            $id_cart = $id;
+        
             return view('home.bill.edit',
             [
                 'customer' => $customer,
@@ -149,6 +149,7 @@ class CartController extends Controller
                 'p' => $p,
                 'product' =>$product,
                 'seller'=> $seller,
+                'id_cart' =>$id,
             ]
         );
         }

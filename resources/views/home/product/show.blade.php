@@ -294,7 +294,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-success btn-lg" name="submit"
-                                                value="addtocard" style="width: 100%">Thêm Vào Giỏ Hàng </button>
+                                                value="addtocard" style="width: 100%">Đặt lịch hẹn</button>
                                         </form>
                                     </div>
                                 @endauth

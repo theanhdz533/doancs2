@@ -58,6 +58,9 @@
             <li><a class="app-menu__item" href="post"><i class='app-menu__icon bx bx-run'></i><span
                         class="app-menu__label">Quản lý bài đăng
                     </span></a></li>
+                    <li><a class="app-menu__item" href="banner"><i class='app-menu__icon bx bx-run'></i><span
+                        class="app-menu__label">Quản lý banner
+                    </span></a></li>
         </ul>
     </aside>
     <main class="app-content">
@@ -138,11 +141,9 @@
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                                 <tr>
-                                    <th>Ngày</th>
+                                    <th>Ngày hẹn khách</th>
                                     <th>Khách hàng</th>
                                     <th>Đơn hàng</th>
-                                    <th>Số lượng</th>
-                                    <th>Tổng tiền</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -156,26 +157,25 @@
                                     @break
                                     @endif
                                     @endforeach 
+
                                     @foreach ($product as $key)
-                                    @if ($data->product_id == $key->id) 
+                                    @if ($key->id == $data->product_id )
                                     <td>{{ $key->title }}</td> 
                                     @endif
+                                    
+                                  
+                                   
                                     @endforeach 
-                                    <td>{{ $data->amount }} sản phẩm</td>
-                                    <td id="money"> đ</td>
-                                    <script>
-                                        var x = {{ $data->total }};
-                                        x = x.toLocaleString('it-IT', {
-                                            style: 'currency',
-                                            currency: 'VND'
-                                        });
-                                        document.getElementById("money").innerHTML = x;
-                                    </script>
+                                    
+                                    
                                     @if ($data->status == 2)
-                                        <td style="color: red"><b>Đơn bị hủy</b></td>
+                                        <td style="color: red"><b>Hẹn không thành công!</b></td>
                                     @endif
                                     @if ($data->status == 1)
-                                        <td style="color: rgb(47, 154, 255)"><b>Đang xác nhận</b></td>
+                                        <td style="color: rgb(47, 154, 255)"><b>Đang hẹn!</b></td>
+                                    @endif
+                                    @if ($data->status == 3)
+                                        <td style="color: rgb(47, 154, 255)"><b>Hẹn thành công</b></td>
                                     @endif
                                 </tr>
                                 @endforeach
@@ -223,7 +223,7 @@
                                    
                             </tbody>
                         </table>
-                        <div> {{ $product->links() }}</div>
+                        {{-- <div> {{ $product->links() }}</div> --}}
                     </div>
                 </div>
             </div>

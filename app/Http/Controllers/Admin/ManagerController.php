@@ -46,7 +46,7 @@ class ManagerController extends Controller
         $user = user::all();
         $product = post::all();
         
-        $product = post::paginate(5);
+       
 
         
         // san pham het hang

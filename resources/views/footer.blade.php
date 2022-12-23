@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col-md-12">
           <p>
-              Copyright © 2022 Company Name
+              Copyright © 2022 CarDealer
           </p>
         </div>
       </div>

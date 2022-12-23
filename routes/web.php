@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Accept;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\hidden;
 use App\Http\Controllers\Admin\ManagerController;
@@ -57,6 +58,7 @@ Route::post('/unOrder',[BillController::class,'unOrder'])->name('unOrder');
 Route::resource('/confirm',
         accpet::class
 );
+Route::post('/address',[accpet::class,'address'])->name('address');
 Route::resource('/cancel',
         HomeHidden::class
 );
@@ -102,6 +104,9 @@ Route::resource('/accept',
 );
 Route::resource('/hidden',
          hidden::class
+);
+Route::resource('/banner',
+         BannerController::class
 );
 
 

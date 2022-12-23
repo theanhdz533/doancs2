@@ -12,16 +12,25 @@ class SendMail extends Mailable
   
     public $mailData;
     public $information;
+    public $phone;
+    public $address;
+    public $time;
+    public $date;
+    
   
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mailData,$information)
+    public function __construct($mailData,$information,$phone,$address,$time,$date)
     {
         $this->mailData = $mailData;
         $this->information = $information;
+        $this->phone = $phone;
+        $this->address = $address;
+        $this->time = $time;
+        $this->date = $date;
     }
   
     /**
@@ -31,7 +40,7 @@ class SendMail extends Mailable
      */
     public function build()
     {  
-        return $this->from('abcxyz@gmail.com','Admin')->subject('Xác nhận đơn hàng của bạn')->view('email.accept_cart');
+        return $this->from('abcxyz@gmail.com','Admin')->subject('Thư hẹn xem xe!')->view('email.accept_cart');
     }
 
  

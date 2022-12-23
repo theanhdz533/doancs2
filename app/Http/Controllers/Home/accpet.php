@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Mail\SendMail;
 use App\Models\cart;
 use App\Models\post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -82,15 +83,56 @@ class accpet extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
-    {    
+    public function destroy(Request $request, $id)
+    {
         $cart = Cart::find($request->id);
-        $infor = post::where('id',$cart->product_id)->first();
+        $infor = post::where('id', $cart->product_id)->first();
         $mailData = $request->username;
-        Mail::to($mailData)->send(new SendMail($cart,$infor));
-        cart::where('id',$id)->update([
+        $date = date($cart->date);
+
+        $id_cart = $id;
+        return view(
+            'home.post.address',
+            [
+
+                'id_cart' => $id_cart,
+                'mailData' => $mailData,
+                'date' => $date,
+            ]
+
+        );
+    }
+    public function address(Request $request)
+    {
+        $id = $request->id;
+        $mailData = $request->mailData;
+        $cart = Cart::find($id);
+        // date
+
+        if ($request->date) {
+            $format = "d/m/Y";
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $time = strtotime($request->date);
+            $date = date($format, $time);
+        } else {
+            $date = $request->date_old;
+        }
+       
+
+        cart::where('id', $id)->update([
             'status' => 3,
+            'address' => $request->address,
+            'time' => $request->time,
+            'date' => $date,
         ]);
-       return redirect('/HomePost');
+
+        $phone = $request->phone;
+        $addrees = $request->address;
+        $time = $request->time;
+        $infor = post::where('id', $cart->product_id)->first();
+
+        Mail::to($mailData)->send(new SendMail($cart, $infor, $phone, $addrees, $time, $date));
+
+        return redirect('/HomePost');
     }
 }

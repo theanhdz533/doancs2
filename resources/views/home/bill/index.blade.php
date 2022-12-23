@@ -621,7 +621,7 @@
             <!-- Start DEMO HTML (Use the following code into your project)-->
             <header id="site-header">
                 <div class="container">
-                    <h1>Lịch sử mua hàng của bạn!</h1>
+                    <h1>Lịch sử giao dịch của bạn!</h1>
 
 
                 </div>
@@ -632,7 +632,7 @@
                 <section id="cart">
                     @foreach ($cart as $data)
                         @if (Auth::user()->username == $data->user && $data->status == 3)
-                            <h3>Ngày mua: {{ $data->date }}</h3>
+                            <h3>Ngày hẹn: {{ $data->date }}</h3>
                             <article class="product">
                                 <header>
                                     <a class="remove">
@@ -655,20 +655,19 @@
 
                                     <footer class="content">
 
-                                        <h3 style="display:inline-block;">Số lượng {{ $data->amount }} sản phẩm!
-                                        </h3>
-                
+
+
                                         <h2 class="full-price" id="mone">
-                                            
+
                                         </h2>
                                         <script>
-                                            var x = {{  $data->total  }};
+                                            var x = {{ $data->total }};
                                             x = x.toLocaleString('it-IT', {
                                                 style: 'currency',
                                                 currency: 'VND'
                                             });
                                             console.log(x);
-                                            document.getElementById("mone").innerHTML = "Tổng tiền: "+x;
+                                            document.getElementById("mone").innerHTML = "Tổng tiền: " + x;
                                         </script>
                                         <h2 class="price">
 

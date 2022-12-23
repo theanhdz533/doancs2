@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Models\product;
-use App\Models\User;
+use App\Models\banner;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Models\post;
-class Accept extends Controller
+
+class BannerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,10 @@ class Accept extends Controller
      */
     public function index()
     {
-        //
+        $image = banner::all();
+        return view('admin.banner.index',
+        ['image' => $image,
+        ]);
     }
 
     /**
@@ -58,10 +60,10 @@ class Accept extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit($id)
     {
-           
-       
+        $banner = banner::find($id);
+        return view('admin.banner.edit',compact('banner'));
     }
 
     /**
@@ -72,9 +74,24 @@ class Accept extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {      
+    {
+        $check = $request->file('ImageUpload');
+        $banner = banner::find($id);
+        $img= $banner['image'];
+        
+        if (is_file($check)){
+            $nameImg = time() . '_' . $request->file('ImageUpload')->getClientOriginalName();
+            $request->ImageUpload->move(public_path('admin/csdl/banner'), $nameImg);
+        }
+        else {
+            $nameImg = $img;
+        }
+
+        $data_img = banner::where('id',$id)->update([
+            'img'=> $nameImg,
+           ]);
     
-       
+           return redirect('/banner');
     }
 
     /**
@@ -85,9 +102,6 @@ class Accept extends Controller
      */
     public function destroy($id)
     {
-        Post::where('id',$id)->update([
-            'status' => 1,
-        ]);
-        return redirect('/post');
+        //
     }
 }
